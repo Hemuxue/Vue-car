@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+</head>
+<body>
+    hello , world
+    <img src="Zhuoku063.jpg" alt="" style="width:200px;">
+
+
+    <input type="text" id="stuNum" placeholder="学号">
+    <input type="password" id="password" placeholder="密码">
+    <button class="button">提交</button>
+    <script src="login.js"></script>
+    <script>
+        let btn = document.getElementsByClassName('button')[0];
+        let stuNum = document.getElementById('stuNum');
+        let password = document.getElementById('password')
+        btn.onclick = function (e) {
+            console.log(e.target)
+            console.log(stuNum.value,password.value);
+            let params = `stuNum=${stuNum.value}&password=${password.value}`
+            // ajaxFunc('get','/login',params,function (data) {
+            //     if(data == 'ok'){
+            //         alert('登录成功')
+            //     }else {
+            //         alert('密码错误')
+            //     }
+            // },true)
+            ajaxFunc('post','/login',params,function (data) {
+                if(data == 'ok'){
+                    alert('登录成功')
+                    //前端跳转
+                    location.href = '/main.html'
+                }else {
+                    alert('密码错误')
+                }
+            },true)
+            //post 比 get 稍微好点就是 post的 数据是隐式传输，再数据域里面，不会显示在url里面
+            //但是post 和 get都是http协议，http查不多就行明文传输，没有安全性可言
+        }
+
+    </script>
+</body>
+</html>
