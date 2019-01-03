@@ -1,6 +1,10 @@
 <template>
-    <div class="login">
-        <div class="log_form">
+    <div class="register">
+        <div class="reg_form">
+            <el-input v-model="user_name" class = 'input'
+            placeholder="用户名"
+            clearable 
+            ></el-input>
             <el-input v-model="phoneNum" class = 'input'
             placeholder="请输入手机号"
             clearable 
@@ -10,10 +14,10 @@
             clearable
             ></el-input>
             <el-button 
-            class="login_btn" 
+            class="reg_btn" 
             @click="handleLogin"
-            type="primary">登录</el-button>
-            <el-button class="register">还不是会员?<router-link to="/register" class="link" >立即注册</router-link></el-button>
+            type="primary">注册</el-button>
+            
         </div>
         
     </div>  
@@ -23,6 +27,7 @@ import axios from 'axios'
 export default {
     data(){
         return {
+            user_name:'',
             phoneNum:'',
             password:''
         }
@@ -32,7 +37,9 @@ export default {
             console.log(this.phoneNum,this.password)
             axios.post('/api/login',{
                 stuNum:this.phoneNum,
-                password:this.password
+                password:this.password,
+                userName:this.user_name
+
             }).then((response) =>{
                 console.log(response)
             })
@@ -43,7 +50,7 @@ export default {
 
 <style lang="stylus" scoped>
 @import '~assets/stylus/variable.styl'
-    .login
+    .register
         position absolute
         left 0 
         top 0
@@ -52,7 +59,7 @@ export default {
         background-image url(http://img2.zol.com.cn/product/104_940x705/893/ceJI5XnHnwQnk.jpg)
         background-size 100% 100% 
         
-        .log_form
+        .reg_form
             text-align center
             background-color transparent
             width 400px;
@@ -64,7 +71,7 @@ export default {
             .input 
                 width 300px; 
                 margin-bottom 10px;  
-            .login_btn
+            .reg_btn
                 width 300px;
                 height 50px;
             .register
