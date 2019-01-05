@@ -1,8 +1,12 @@
 <template>
     <div class="login">
         <div class="log_form">
-            <el-input v-model="phoneNum" class = 'input'
-            placeholder="请输入手机号"
+            <div class="user_title">
+                <span class="title">易行租车系统</span>
+            </div>
+            <p class="user_login">用户登录</p>
+            <el-input v-model="empName" class = 'input'
+            placeholder="员工名"
             clearable 
             ></el-input>
             <el-input v-model="password" class = 'input'
@@ -13,7 +17,6 @@
             class="login_btn" 
             @click="handleLogin"
             type="primary">登录</el-button>
-            <el-button class="register">还不是会员?<router-link to="/register" class="link" >立即注册</router-link></el-button>
         </div>
         
     </div>  
@@ -23,18 +26,20 @@ import axios from 'axios'
 export default {
     data(){
         return {
-            phoneNum:'',
+            empName:'',
             password:''
         }
     },
     methods:{
         handleLogin () {
-            console.log(this.phoneNum,this.password)
+            console.log(this.empName,this.password)
             axios.post('/api/login',{
-                stuNum:this.phoneNum,
+                empName:this.empName,
                 password:this.password
             }).then((response) =>{
-                console.log(response)
+                if(response.data == 'ok'){
+                    this.$router.push({name : 'Sta'})
+                }
             })
         }
     }
@@ -54,13 +59,30 @@ export default {
         
         .log_form
             text-align center
-            background-color transparent
+            background-image url(../../assets/img/login-background.jpg) 
+            background-size 100% 100%
             width 400px;
             padding 40px 0
             position absolute
             top 0
             left 50%;
             margin-left -200px
+            .user_title
+                width 300px;
+                margin 0 auto
+                border-bottom 1px solid #fff
+                margin-bottom 20px
+                .title 
+                    color #fff
+                    height 40px
+                    line-height 40px
+            .user_login
+                height 30px;
+                line-height 30px;
+                margin-left 50px;
+                text-align left
+                color #fff
+
             .input 
                 width 300px; 
                 margin-bottom 10px;  

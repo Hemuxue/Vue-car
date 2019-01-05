@@ -11,7 +11,7 @@ function createConnection (){
         port:'3306',
         user:'root',
         password:'heju4663033',
-        database:'school',
+        database:'car',
 
     });
     return connection;
