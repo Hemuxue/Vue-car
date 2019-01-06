@@ -4,6 +4,7 @@ import Login from 'pages/login/login.vue'
 import Statistics from 'pages/statistics/statistics'
 import Person_reg from 'pages/Person/person_register'
 import Person_search from 'pages/Person/person_search'
+import Person_updata from 'pages/Person/person_updata'
 Vue.use(Router)
 
 export default new Router({
@@ -18,12 +19,16 @@ export default new Router({
       component: Statistics
     },{
       name:'person_reg',
-      path:'person_reg',
+      path:'/person_reg',
       component: Person_reg
     },{
-      name:'pseron_search',
-      path:'pseron_search',
+      name:'person_search',
+      path:'/person_search',
       component:Person_search
+    },{
+      name:'person_updata',
+      path:'/person_updata',
+      component:Person_updata
     }
 
   ]

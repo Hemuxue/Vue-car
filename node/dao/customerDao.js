@@ -51,8 +51,27 @@ function deleteByPhone(phone,success){
     })
     connection.end()
 }
+
+function updateCustByPhone(params,success){
+    let updateSql = 'update customer set cusName = ?,sex =?,address =? where phone = ?;'
+
+    let connection = dbutil.createConnection();
+
+    connection.connect();
+    connection.query(updateSql , params, function (error,result) {
+        if(error == null){
+            success(result);
+        }else {
+            console.log(error)
+        }
+    })
+    connection.end()
+}
+
+
 module.exports = {
     'insertCust':insertCust,
     'queryAllCust':queryAllCust,
-    'deleteByPhone':deleteByPhone
+    'deleteByPhone':deleteByPhone,
+    'updateCustByPhone':updateCustByPhone
 }

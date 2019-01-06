@@ -71,7 +71,7 @@ export default {
             this.$router.push({name : 'login'})
         },
         handlePerson_search(){
-            this.$router.push({name : 'pseron_search'})
+            this.$router.push({name : 'person_search'})
         },
         handleMain(){
             this.$router.push({name : 'Sta'})

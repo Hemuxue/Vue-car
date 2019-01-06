@@ -10,9 +10,13 @@ function queryAllCustSer(success){
 function deleteByPhoneSer(phone,success){
     custDao.deleteByPhone(phone,success)
 }
+function updataCustSer(params,success){
+    custDao.updateCustByPhone(params,success)
+}
 
 module.exports = {
     'insertCustSer':insertCustSer,
     'queryAllCustSer':queryAllCustSer,
-    'deleteByPhoneSer':deleteByPhoneSer
+    'deleteByPhoneSer':deleteByPhoneSer,
+    'updataCustSer':updataCustSer
 }

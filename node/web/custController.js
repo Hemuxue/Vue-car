@@ -69,9 +69,37 @@ function deleCus(request,response){
     })
 
 }
+
+function updateCust(request,response){
+    
+    request.on('data',function (data) {
+        console.log('delete')
+        let tempArr = JSON.parse( data.toString())
+        let param = [tempArr.cusName,tempArr.sex,tempArr.address,tempArr.phone];
+        custService.updataCustSer(param,function (result) {
+            let res = '';
+            if(result == null || result.length == 0){
+                res = 'fall'
+            }else{
+                if(result.protocol41){
+                    res = 'ok'
+                    response.writeHead(200)
+                }else {
+                    res = 'fall'
+                }
+            }
+            response.write(res);
+            response.end();
+        })
+    })
+
+}
+
+
 path.set('/custRegister',custRegister)
 path.set('/allCust',queryAllCust)
 path.set('/deleCus',deleCus)
+path.set('/update',updateCust)
 module.exports  = {
     'path' : path
 }

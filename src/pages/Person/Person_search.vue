@@ -2,7 +2,7 @@
   <div class="person_sea">
     <el-input 
     class="search_input" 
-    placeholder="请输入关键字搜索" 
+    placeholder="请输入姓名搜索" 
     v-model='search'
     size="medium"
     @input='handleSearch'></el-input>
@@ -75,6 +75,7 @@
 
 <script>
 import axios from 'axios'
+import {mapMutations,mapState} from 'vuex'
   export default {
     data() {
       return {
@@ -85,23 +86,34 @@ import axios from 'axios'
     },
     created(){
       axios.get('/api/allCust').then(response =>{
-        let dataArr = response.data
-        
-        dataArr.forEach((ele,index) =>{
-          ele.sex = ele.sex == 1? '男' : '女';
-          ele.birthday = `${new Date(ele.birthday).getFullYear()}--${new Date(ele.birthday).getMonth()}--${new Date(ele.birthday).getDay()}`
+          let dataArr = response.data
+          
+          dataArr.forEach((ele,index) =>{
+            ele.sex = ele.sex == 1? '男' : '女';
+            ele.birthday = `${new Date(ele.birthday).getFullYear()}--${new Date(ele.birthday).getMonth()}--${new Date(ele.birthday).getDay()}`
+          })
+          this.baseData = dataArr
+          this.handleData(this.baseData);
         })
-        this.baseData = dataArr
-        this.handleData(this.baseData);
-      })
-      
     },
+    computed:mapState(['key']),
     methods: {
+      ...mapMutations(['addCustData','changeKey']),
       handleEdit(index, row) {
-        console.log(index, row);
+        let data = {};
+        for(let prop in row){
+          if(prop == 'birthday' || prop == 'yajin'){
+
+          }else{
+            data[prop] = row[prop]
+          }
+          
+        }
+        this.addCustData(data)
+
+        this.$router.push({name : 'person_updata'})
       },
       handleDelete(index, row) {
-        console.log(index, row.phone);
         this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
             confirmButtonText: '确定',
             cancelButtonText: '取消',
@@ -110,7 +122,6 @@ import axios from 'axios'
             axios.post('/api/deleCus',{
               phone:row.phone
             }).then(response =>{
-              console.log(response)
               if(response.data == 'ok'){
                 this.$message({
                   type: 'success',
@@ -151,7 +162,23 @@ import axios from 'axios'
           this.handleData(this.baseData)
         },1000)
       },
-    }
+      
+    },
+    activated(){
+      if(this.key === 'true'){
+        this.changeKey(false)
+        axios.get('/api/allCust').then(response =>{
+          let dataArr = response.data
+          
+          dataArr.forEach((ele,index) =>{
+            ele.sex = ele.sex == 1? '男' : '女';
+            ele.birthday = `${new Date(ele.birthday).getFullYear()}--${new Date(ele.birthday).getMonth()}--${new Date(ele.birthday).getDay()}`
+          })
+          this.baseData = dataArr
+          this.handleData(this.baseData);
+        })
+      }
+    },
   }
 
 </script>
