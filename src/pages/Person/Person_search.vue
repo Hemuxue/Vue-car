@@ -1,6 +1,11 @@
 <template>
   <div class="person_sea">
-    <el-input class="search_input" placeholder="请输入关键字搜索" v-bind="search" size="medium"></el-input>
+    <el-input 
+    class="search_input" 
+    placeholder="请输入关键字搜索" 
+    v-model='search'
+    size="medium"
+    @input='handleSearch'></el-input>
     <el-table
       :data="tableData"
       style="width: 100%"
@@ -11,7 +16,7 @@
         label="姓名"
         width="100">
         <template slot-scope="scope">
-          <span style="margin-left:-0px;">{{ scope.row.name }}</span>
+          <span style="margin-left:-0px;">{{ scope.row.cusName }}</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -26,7 +31,7 @@
         label="出生年月"
         width="200">
         <template slot-scope="scope">
-          <span >{{ scope.row.birth }}</span>
+          <span >{{ scope.row.birthday }}</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -69,34 +74,83 @@
 </template>
 
 <script>
+import axios from 'axios'
   export default {
     data() {
       return {
-        tableData: [{
-          name: '小虎',
-          sex: '男',
-          birth:'2016-05-02',
-          address: '中国四川',
-          phone:'15983494055',
-          yajin:'1000'
-        },{
-          name: '小虎',
-          sex: '男',
-          birth:'2016-05-02',
-          address: '中国四川',
-          phone:'15983494055',
-          yajin:'1000'}
-        ],
-        search:''
+        tableData: [],
+        search:'',
+        timer:''
       }
+    },
+    created(){
+      axios.get('/api/allCust').then(response =>{
+        let dataArr = response.data
+        
+        dataArr.forEach((ele,index) =>{
+          ele.sex = ele.sex == 1? '男' : '女';
+          ele.birthday = `${new Date(ele.birthday).getFullYear()}--${new Date(ele.birthday).getMonth()}--${new Date(ele.birthday).getDay()}`
+        })
+        this.baseData = dataArr
+        this.handleData(this.baseData);
+      })
+      
     },
     methods: {
       handleEdit(index, row) {
         console.log(index, row);
       },
       handleDelete(index, row) {
-        console.log(index, row);
-      }
+        console.log(index, row.phone);
+        this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            axios.post('/api/deleCus',{
+              phone:row.phone
+            }).then(response =>{
+              console.log(response)
+              if(response.data == 'ok'){
+                this.$message({
+                  type: 'success',
+                  message: '删除成功!'
+                });
+              }
+            })
+          }).catch(() => {
+            this.$message({
+              type: 'info',
+              message: '已取消删除'
+          });          
+        });
+        
+        this.baseData = this.baseData.filter((ele,index) =>{
+          if(ele.phone !== row.phone){
+            return true
+          }
+        })
+        this.handleData(this.baseData)
+
+      },
+      handleData(data){
+        if(this.search == ''){
+          this.tableData = data
+        }else{
+          let tempArr = data.filter((ele,index) =>{
+            if(ele.cusName.indexOf( this.search) !== -1){
+              return true;
+            }
+          })
+          this.tableData = tempArr
+        }
+      },
+      handleSearch(e){
+        clearTimeout(this.timer)
+        this.timer = setTimeout(()=>{
+          this.handleData(this.baseData)
+        },1000)
+      },
     }
   }
 

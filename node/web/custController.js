@@ -9,9 +9,7 @@ function custRegister(request,response){
         let tempArr = JSON.parse( data.toString())
         let paramsArr = [tempArr.name,tempArr.sex,tempArr.birth,tempArr.address,tempArr.phone,tempArr.createTime]
 
-        console.log(paramsArr)
         custService.insertCustSer(paramsArr,function (result) {
-            console.log(result)
             let res = '';
             if(result == null || result.length == 0){
                 res = 'fall'
@@ -30,7 +28,50 @@ function custRegister(request,response){
 
 }
 
+function queryAllCust(request,response){
+    console.log('inter web')
+    custService.queryAllCustSer(function (result) {
+        console.log(result)
+        let res = '';
+        let data = {};
+        if(result == null || result.length == 0){
+            res = 'fall'
+        }else{
+            res = JSON.stringify( result)
+        }
+        response.write(res);
+        response.end();
+    })
+
+}
+
+function deleCus(request,response){
+    
+    request.on('data',function (data) {
+        console.log('delete')
+        let tempArr = JSON.parse( data.toString())
+        let phone = tempArr.phone
+        custService.deleteByPhoneSer(phone,function (result) {
+            let res = '';
+            if(result == null || result.length == 0){
+                res = 'fall'
+            }else{
+                if(result.protocol41){
+                    res = 'ok'
+                    response.writeHead(200)
+                }else {
+                    res = 'fall'
+                }
+            }
+            response.write(res);
+            response.end();
+        })
+    })
+
+}
 path.set('/custRegister',custRegister)
+path.set('/allCust',queryAllCust)
+path.set('/deleCus',deleCus)
 module.exports  = {
     'path' : path
 }

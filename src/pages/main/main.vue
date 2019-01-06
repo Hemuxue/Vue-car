@@ -5,7 +5,7 @@
         
             <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
                 <el-menu :default-openeds="['1', '3']">
-                <el-menu-item index="1-1"><i class="el-icon-menu"></i>首页</el-menu-item>
+                <el-menu-item index="1-1" @click="handleMain"><i class="el-icon-menu"></i>首页</el-menu-item>
                 <el-submenu index="1">
                     <template slot="title"><i class="el-icon-message"></i>会员管理</template>
                     <el-menu-item-group>
@@ -72,6 +72,9 @@ export default {
         },
         handlePerson_search(){
             this.$router.push({name : 'pseron_search'})
+        },
+        handleMain(){
+            this.$router.push({name : 'Sta'})
         }
     }
 }
