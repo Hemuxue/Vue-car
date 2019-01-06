@@ -43,8 +43,8 @@
                     <template slot="title"><i class="el-icon-setting"></i>员工管理</template>
                     <el-menu-item-group>
 
-                    <el-menu-item index="5-1">选项1</el-menu-item>
-                    <el-menu-item index="5-2">选项2</el-menu-item>
+                    <el-menu-item index="5-1" @click="handleEmpAdd">添加员工</el-menu-item>
+                    <el-menu-item index="5-2" >员工信息</el-menu-item>
                     </el-menu-item-group>   
                 </el-submenu>
                 </el-menu>
@@ -75,6 +75,9 @@ export default {
         },
         handleMain(){
             this.$router.push({name : 'Sta'})
+        },
+        handleEmpAdd(){
+            this.$router.push({name : 'emp_register'})
         }
     }
 }

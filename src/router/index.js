@@ -5,6 +5,7 @@ import Statistics from 'pages/statistics/statistics'
 import Person_reg from 'pages/Person/person_register'
 import Person_search from 'pages/Person/person_search'
 import Person_updata from 'pages/Person/person_updata'
+import Emp_register from 'pages/Emp/emp_register'
 Vue.use(Router)
 
 export default new Router({
@@ -29,6 +30,11 @@ export default new Router({
       name:'person_updata',
       path:'/person_updata',
       component:Person_updata
+    },{
+      name:'emp_register',
+      path:'/emp_register',
+      component:Emp_register
+
     }
 
   ]
