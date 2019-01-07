@@ -6,7 +6,9 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     state:{
         custData:{},
-        key:false
+        storeData:{},
+        key:'false',
+        storeKey:'false',
     },
     mutations:{
         addCustData(state,data){
@@ -14,6 +16,12 @@ export default new Vuex.Store({
         },
         changeKey(state,bool){
             state.key = bool
+        },
+        addStoreData(state,data){
+            state.storeData = data
+        },
+        changeStoreKey(state,bool){
+            state.storeKey = bool
         }
     },
     actions:{

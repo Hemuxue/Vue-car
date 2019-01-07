@@ -30,6 +30,7 @@
 </template>
 <script>
 import axios from 'axios'
+import {mapMutations} from 'vuex'
 export default {
     data(){
         return {
@@ -71,6 +72,8 @@ export default {
                         type:'success'
                     });
                     this.form = {};
+                    this.$router.push({name:'person_search'})
+                    this.changeKey('true')
                 }
             })
         },
@@ -88,7 +91,8 @@ export default {
         },
         handleOut(){
             this.$router.push({name:'Sta'})
-        }
+        },
+        ...mapMutations(['changeKey'])
     }
 }
 </script>

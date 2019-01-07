@@ -6,6 +6,9 @@ import Person_reg from 'pages/Person/person_register'
 import Person_search from 'pages/Person/person_search'
 import Person_updata from 'pages/Person/person_updata'
 import Emp_register from 'pages/Emp/emp_register'
+import Store_register from 'pages/store/store_register'
+import Store_show from 'pages/store/store_show'
+import Store_update from 'pages/store/store_update'
 Vue.use(Router)
 
 export default new Router({
@@ -33,9 +36,21 @@ export default new Router({
     },{
       name:'emp_register',
       path:'/emp_register',
-      component:Emp_register
-
+      component:Emp_register,
+    },{
+      name:'store_register',
+      path:'/store_register',
+      component:Store_register
+    },{
+      name:'store_show',
+      path:'/store_show',
+      component:Store_show
+    },{
+      name:'store_update',
+      path:'/store_update',
+      component:Store_update
     }
+    
 
   ]
 })
