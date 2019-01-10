@@ -23,6 +23,7 @@
 </template>
 <script>
 import axios from 'axios'
+import {mapMutations} from 'vuex'
 export default {
     data(){
         return {
@@ -40,10 +41,12 @@ export default {
                 if(response.data == 'ok'){
                     this.password = '';
                     this.$router.push({name : 'Sta'})
+                    this.changeEmpName(this.empName)
                 }
             })
 
-        }
+        },
+        ...mapMutations(['changeEmpName'])
     }
 }
 </script>

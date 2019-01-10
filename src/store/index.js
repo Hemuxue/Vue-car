@@ -9,6 +9,7 @@ export default new Vuex.Store({
         storeData:{},
         key:'false',
         storeKey:'false',
+        empName:''
     },
     mutations:{
         addCustData(state,data){
@@ -22,6 +23,9 @@ export default new Vuex.Store({
         },
         changeStoreKey(state,bool){
             state.storeKey = bool
+        },
+        changeEmpName(state,name){
+            state.empName = name
         }
     },
     actions:{

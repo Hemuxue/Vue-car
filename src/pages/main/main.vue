@@ -1,6 +1,6 @@
 <template>
     <el-container style="position:absolute;left:0;right:0;top:0;bottom:0;">
-        <el-header>易行租车网</el-header>
+        <el-header>易行租车网&nbsp;欢迎你<span class="emp_name">{{empName}}</span></el-header>
         <el-container style="height: 500px; border: 1px solid #eee">
         
             <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
@@ -15,23 +15,6 @@
                     <el-menu-item index="1-3">会员租车</el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
-                <!-- <el-submenu index="2">
-                    <template slot="title"><i class="el-icon-tickets"></i>订单管理</template>
-                    <el-menu-item-group>
-
-                        <el-menu-item index="2-1">选项1</el-menu-item>
-                        <el-menu-item index="2-2">选项2</el-menu-item>
-                    </el-menu-item-group>
-                    
-                </el-submenu> -->
-                <!-- <el-submenu index="3">
-                    <template slot="title"><i class="el-icon-setting"></i>车辆管理</template>
-                    <el-menu-item-group>
-
-                    <el-menu-item index="3-1" >选项1</el-menu-item>
-                    <el-menu-item index="3-2">选项2</el-menu-item>
-                    </el-menu-item-group>   
-                </el-submenu> -->
                 <el-submenu index="4">
                     <template slot="title"><i class="el-icon-setting"></i>门店管理</template>
                     <el-menu-item-group>
@@ -63,13 +46,19 @@
     
 </template>
 <script>
+import {mapState} from 'vuex'
+import {mapMutations} from 'vuex'
 export default {
+    computed:mapState([
+        'empName'
+    ]),
     methods:{
         handlePerson_reg (){
             this.$router.push({name : 'person_reg'})
         },
         handleOut(){
             this.$router.push({name : 'login'})
+            this.changeEmpName('')
         },
         handlePerson_search(){
             this.$router.push({name : 'person_search'})
@@ -85,7 +74,8 @@ export default {
         },
         handleStoShow(){
             this.$router.push({name:'store_show'})
-        }
+        },
+        ...mapMutations(['changeEmpName'])
     }
 }
 </script>
@@ -97,7 +87,11 @@ export default {
         text-align: left;
         line-height: 60px;
         padding 0 60px
-
+        .emp_name
+            margin-left 15px
+            font-size 20px
+            vertical-align top
+            cursor pointer
     .el-aside {
         background-color: #D3DCE6;
         color: #333;
