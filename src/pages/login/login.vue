@@ -9,7 +9,7 @@
             placeholder="员工名"
             clearable 
             ></el-input>
-            <el-input v-model="password" class = 'input'
+            <el-input type="password" v-model="password" class = 'input'
             placeholder="请输入密码"
             clearable
             ></el-input>
@@ -38,9 +38,11 @@ export default {
                 password:this.password
             }).then((response) =>{
                 if(response.data == 'ok'){
+                    this.password = '';
                     this.$router.push({name : 'Sta'})
                 }
             })
+
         }
     }
 }

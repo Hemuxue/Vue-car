@@ -106,6 +106,12 @@ import {mapMutations,mapState} from 'vuex'
               storeName:row.storeName
             }).then(response =>{
               if(response.data == 'ok'){
+                this.baseData = this.baseData.filter((ele,index) =>{
+                  if(ele.storeName !== row.storeName){
+                    return true
+                  }
+                })
+                this.handleData(this.baseData)
                 this.$message({
                   type: 'success',
                   message: '删除成功!'
@@ -118,14 +124,6 @@ import {mapMutations,mapState} from 'vuex'
               message: '已取消删除'
           });          
         });
-        
-        this.baseData = this.baseData.filter((ele,index) =>{
-          if(ele.storeName !== row.storeName){
-            return true
-          }
-        })
-        this.handleData(this.baseData)
-
       },
       handleData(data){
         if(this.search == ''){

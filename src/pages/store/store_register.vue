@@ -26,6 +26,7 @@
 </template>
 <script>
 import axios from 'axios'
+import {mapMutations} from 'vuex'
 export default {
     data(){
         return {
@@ -55,6 +56,7 @@ export default {
                         type:'success'
                     });
                     this.store = {};
+                    this.changeStoreKey('true')
                     this.$router.push({name:'store_show'})
                 }
             })
@@ -73,7 +75,8 @@ export default {
         },
         handleOut(){
             this.$router.push({name:'Sta'})
-        }
+        },
+        ...mapMutations(['changeStoreKey'])
     }
 }
 </script>

@@ -61,7 +61,7 @@ export default {
             axios.post('/api/updateStore',this.store).then((response) =>{
                 if(response.data == 'ok'){
                     this.$message({
-                        message:'恭喜注册成功',
+                        message:'恭喜！信息修改成功',
                         type:'success'
                     });
                     this.changeStoreKey('true')
